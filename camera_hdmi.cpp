@@ -91,9 +91,10 @@ struct CameraHDMI::Impl {
         memset(&fmt, 0, sizeof(fmt));
         fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
         
-        if (ioctl(fd, VIDIOC_G_FMT, &fmt) < 0) {
-            perror("Failed to get current format");
-            return false;
+        if (ioctl(fd, VIDIOC_S_FMT, &fmt) < 0) {
+            if (ioctl(fd, VIDIOC_G_FMT, &fmt) < 0) {
+                std::cout << "VIDIOC_S_FMT and VIDIOC_G_FMT are not supported " << std::endl;
+            }
         }
 
         std::cout << "Current format: " 
@@ -363,5 +364,6 @@ bool CameraHDMI::capture_frame(cv::Mat& frame) {
     return result;
 
 }
+
 
 
