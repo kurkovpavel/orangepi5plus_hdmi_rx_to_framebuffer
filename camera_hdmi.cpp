@@ -56,8 +56,9 @@ struct CameraHDMI::Impl {
         fmt.fmt.pix_mp.plane_fmt[0].sizeimage = 0;
 
         if (ioctl(fd, VIDIOC_S_FMT, &fmt) < 0) {
-            perror("VIDIOC_S_FMT");
-            return false;
+            if (ioctl(fd, VIDIOC_G_FMT, &fmt){
+                std::cout << "VIDIOC_S_FMT is not supported, VIDIOC_G_FMT is supported only " << std::endl;
+            }
         }
 
         this->fmt = fmt;
@@ -360,4 +361,5 @@ bool CameraHDMI::capture_frame(cv::Mat& frame) {
     free(planes_mem);
 
     return result;
+
 }
