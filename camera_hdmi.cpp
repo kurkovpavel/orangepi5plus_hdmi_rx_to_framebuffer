@@ -57,7 +57,7 @@ struct CameraHDMI::Impl {
 
         if (ioctl(fd, VIDIOC_S_FMT, &fmt) < 0) {
             if (ioctl(fd, VIDIOC_G_FMT, &fmt) < 0){
-                std::cout << "VIDIOC_S_FMT is not supported, VIDIOC_G_FMT is supported only " << std::endl;
+                std::cout << "VIDIOC_S_FMT and VIDIOC_G_FMT are not supported " << std::endl;
             }
         }
 
@@ -363,4 +363,5 @@ bool CameraHDMI::capture_frame(cv::Mat& frame) {
     return result;
 
 }
+
 
